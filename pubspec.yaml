@@ -1,0 +1,33 @@
+name: moor_shared
+description: A new Flutter project.
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  # Dart
+  cupertino_icons: ^0.1.2
+  moor: ^1.7.1
+  rxdart: ^0.22.2
+  intl: ^0.16.0
+
+  # Mobile
+  moor_flutter: ^1.7.0
+
+  # Web
+
+dev_dependencies:
+  moor_generator: ^1.7.1
+  build_runner: ^1.6.7
+  build_web_compilers: ^2.3.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+
+  uses-material-design: true
