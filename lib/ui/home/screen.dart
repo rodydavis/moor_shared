@@ -61,20 +61,23 @@ class HomeScreenState extends State<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text('What needs to be done?'),
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: TextField(
-                        controller: controller,
-                        onSubmitted: (_) => _createTodoEntry(),
+                Container(
+                  padding: EdgeInsets.only(bottom: 10.0),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: TextField(
+                          controller: controller,
+                          onSubmitted: (_) => _createTodoEntry(),
+                        ),
                       ),
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.send),
-                      color: Theme.of(context).accentColor,
-                      onPressed: _createTodoEntry,
-                    ),
-                  ],
+                      IconButton(
+                        icon: Icon(Icons.send),
+                        color: Theme.of(context).accentColor,
+                        onPressed: _createTodoEntry,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
