@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart' hide Column;
-import 'package:flutter/widgets.dart' as f show Column;
+import 'package:flutter/material.dart';
 
 import '../../data/blocs/bloc.dart';
 import '../../data/blocs/provider.dart';
@@ -56,7 +55,7 @@ class HomeScreenState extends State<HomeScreen> {
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: f.Column(
+            child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
