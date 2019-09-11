@@ -28,6 +28,17 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-flutter:
+dependency_overrides:
+  moor:
+    git:
+      url: git://github.com/simolus3/moor.git
+      ref: ffi
+      path: moor/
+  moor_generator:
+    git:
+      url: git://github.com/simolus3/moor.git
+      ref: ffi
+      path: moor_generator/
 
+flutter:
   uses-material-design: true

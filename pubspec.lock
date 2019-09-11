@@ -315,10 +315,12 @@ packages:
   moor:
     dependency: "direct main"
     description:
-      name: moor
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.7.2"
+      path: "moor/"
+      ref: ffi
+      resolved-ref: "78bb23a7d1b36a559a78319fa297a30074635d23"
+      url: "git://github.com/simolus3/moor.git"
+    source: git
+    version: "1.7.1"
   moor_flutter:
     dependency: "direct main"
     description:
@@ -329,9 +331,11 @@ packages:
   moor_generator:
     dependency: "direct dev"
     description:
-      name: moor_generator
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "moor_generator/"
+      ref: ffi
+      resolved-ref: "78bb23a7d1b36a559a78319fa297a30074635d23"
+      url: "git://github.com/simolus3/moor.git"
+    source: git
     version: "1.7.1"
   package_config:
     dependency: transitive
