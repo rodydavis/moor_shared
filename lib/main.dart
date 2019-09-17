@@ -1,30 +1,14 @@
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'data/blocs/bloc.dart';
 import 'data/blocs/provider.dart';
+import 'plugins/desktop/desktop.dart';
 import 'ui/home/screen.dart';
 
 void main() {
-  if (!kIsWeb) _setTargetPlatformForDesktop();
+  setTargetPlatformForDesktop();
   runApp(MyApp());
-}
-
-/// If the current platform is desktop, override the default platform to
-/// a supported platform (iOS for macOS, Android for Linux and Windows).
-/// Otherwise, do nothing.
-void _setTargetPlatformForDesktop() {
-  TargetPlatform targetPlatform;
-  if (Platform.isMacOS) {
-    targetPlatform = TargetPlatform.iOS;
-  } else if (Platform.isLinux || Platform.isWindows) {
-    targetPlatform = TargetPlatform.android;
-  }
-  if (targetPlatform != null) {
-    debugDefaultTargetPlatformOverride = targetPlatform;
-  }
 }
 
 class MyApp extends StatefulWidget {
