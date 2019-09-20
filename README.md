@@ -18,3 +18,7 @@ samples, guidance on mobile development, and a full API reference.
 ### MacOS
 
 ![](/screenshots/macos.png)
+
+### iPad
+
+![](/screenshots/ipad.png)
