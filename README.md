@@ -1,6 +1,11 @@
 # moor_shared
 
-A new Flutter project.
+An example project to demonstrate how moor can be used on multiple platforms
+(Web, android, iOS, macOS and Linux).
+
+__Note__: You need to install the Android NDK to run this app on Android
+devices. You can get the NDK in the [SDK Manager](https://developer.android.com/studio/intro/update.html#sdk-manager)
+of Android Studio.
 
 ## Getting Started
 

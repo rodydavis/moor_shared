@@ -4,7 +4,7 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.5.0-dev <3.0.0"
 
 dependencies:
   flutter:
@@ -16,8 +16,12 @@ dependencies:
   rxdart: ^0.22.2
   intl: ^0.16.0
 
-  # Mobile
-  moor_flutter: ^1.7.0
+  # Database for mobile and Desktop
+  moor_ffi: ^0.0.1
+  
+  # Helper to find the database path on mobile
+  path_provider: ^1.3.0
+  path: ^1.6.4
 
   # Web
 
@@ -32,12 +36,17 @@ dependency_overrides:
   moor:
     git:
       url: git://github.com/simolus3/moor.git
-      ref: ffi
+      ref: develop
       path: moor/
+  moor_ffi:
+    git:
+      url: git://github.com/simolus3/moor.git
+      ref: develop
+      path: moor_ffi/
   moor_generator:
     git:
       url: git://github.com/simolus3/moor.git
-      ref: ffi
+      ref: develop
       path: moor_generator/
 
 flutter:
