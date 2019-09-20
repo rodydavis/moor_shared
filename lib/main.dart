@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'data/blocs/bloc.dart';
 import 'data/blocs/provider.dart';
 import 'plugins/desktop/desktop.dart';
-import 'ui/home/screen.dart';
 
 void main() {
   setTargetPlatformForDesktop();
@@ -45,7 +44,7 @@ class _MyAppState extends State<MyApp> {
             tall: Typography.tall2018,
           ),
         ),
-        home: HomeScreen(),
+        home: MyHomePage(title: 'Moor Example'),
       ),
     );
   }

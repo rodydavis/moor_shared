@@ -22,3 +22,8 @@ samples, guidance on mobile development, and a full API reference.
 ### iPad
 
 ![](/screenshots/ipad.png)
+
+
+### Web
+
+![](/screenshots/web.png)
