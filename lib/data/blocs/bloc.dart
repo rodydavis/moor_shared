@@ -85,4 +85,8 @@ class TodoAppBloc {
 
     db.deleteCategory(category);
   }
+
+  void dispose() {
+    _allCategories.close();
+  }
 }

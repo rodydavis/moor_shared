@@ -28,8 +28,6 @@ class HomeScreenState extends State<HomeScreen> {
         title: Text('Todo list'),
       ),
       drawer: CategoriesDrawer(),
-      // A moorAnimatedList automatically animates incoming and leaving items, we only
-      // have to tell it what data to display and how to turn data into widgets.
       body: StreamBuilder<List<EntryWithCategory>>(
         stream: bloc.homeScreenEntries,
         builder: (context, snapshot) {

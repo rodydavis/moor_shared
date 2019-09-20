@@ -61,7 +61,7 @@ class Database extends _$Database {
           await m.addColumn(todos, todos.targetDate);
         }
       },
-      beforeOpen: (db, details) async {
+      beforeOpen: (details) async {
         if (details.wasCreated) {
           // create default categories and entries
           final workId = await into(categories)
@@ -89,24 +89,22 @@ class Database extends _$Database {
   Stream<List<CategoryWithCount>> categoriesWithCount() {
     // select all categories and load how many associated entries there are for
     // each category
-    return customSelectStream(
+    return customSelectQuery(
       'SELECT c.id, c.desc, '
       '(SELECT COUNT(*) FROM todos WHERE category = c.id) AS amount '
       'FROM categories c '
       'UNION ALL SELECT null, null, '
       '(SELECT COUNT(*) FROM todos WHERE category IS NULL)',
       readsFrom: {todos, categories},
-    ).map((rows) {
+    ).map((row) {
       // when we have the result set, map each row to the data class
-      return rows.map((row) {
-        final hasId = row.data['id'] != null;
+      final hasId = row.data['id'] != null;
 
-        return CategoryWithCount(
-          hasId ? Category.fromData(row.data, this) : null,
-          row.readInt('amount'),
-        );
-      }).toList();
-    });
+      return CategoryWithCount(
+        hasId ? Category.fromData(row.data, this) : null,
+        row.readInt('amount'),
+      );
+    }).watch();
   }
 
   /// Watches all entries in the given [category]. If the category is null, all
@@ -152,7 +150,7 @@ class Database extends _$Database {
   }
 
   Future deleteCategory(Category category) {
-    return transaction((t) async {
+    return transaction(() async {
       await _resetCategory(category.id);
       await delete(categories).delete(category);
     });
