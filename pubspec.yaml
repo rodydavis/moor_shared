@@ -36,17 +36,17 @@ dependency_overrides:
   moor:
     git:
       url: git://github.com/simolus3/moor.git
-      ref: develop
+      ref: beta
       path: moor/
   moor_ffi:
     git:
       url: git://github.com/simolus3/moor.git
-      ref: develop
+      ref: beta
       path: moor_ffi/
   moor_generator:
     git:
       url: git://github.com/simolus3/moor.git
-      ref: develop
+      ref: beta
       path: moor_generator/
 
 flutter:
