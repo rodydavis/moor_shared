@@ -323,8 +323,8 @@ packages:
     dependency: "direct main"
     description:
       path: "moor/"
-      ref: develop
-      resolved-ref: "87c50de1e1ad53c371b473c3108c8020c9d6f1c1"
+      ref: beta
+      resolved-ref: cef3fd0bbe30d9f6dd823c0e616fe581e2a5ddc7
       url: "git://github.com/simolus3/moor.git"
     source: git
     version: "1.7.2"
@@ -332,8 +332,8 @@ packages:
     dependency: "direct main"
     description:
       path: "moor_ffi/"
-      ref: develop
-      resolved-ref: "87c50de1e1ad53c371b473c3108c8020c9d6f1c1"
+      ref: beta
+      resolved-ref: cef3fd0bbe30d9f6dd823c0e616fe581e2a5ddc7
       url: "git://github.com/simolus3/moor.git"
     source: git
     version: "0.0.1"
@@ -341,8 +341,8 @@ packages:
     dependency: "direct dev"
     description:
       path: "moor_generator/"
-      ref: develop
-      resolved-ref: "87c50de1e1ad53c371b473c3108c8020c9d6f1c1"
+      ref: beta
+      resolved-ref: cef3fd0bbe30d9f6dd823c0e616fe581e2a5ddc7
       url: "git://github.com/simolus3/moor.git"
     source: git
     version: "1.7.1"
