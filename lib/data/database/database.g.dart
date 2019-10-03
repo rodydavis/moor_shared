@@ -6,7 +6,7 @@ part of 'database.dart';
 // MoorGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps
+// ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_this
 class TodoEntry extends DataClass implements Insertable<TodoEntry> {
   final int id;
   final String content;
@@ -95,10 +95,10 @@ class TodoEntry extends DataClass implements Insertable<TodoEntry> {
   bool operator ==(other) =>
       identical(this, other) ||
       (other is TodoEntry &&
-          other.id == id &&
-          other.content == content &&
-          other.targetDate == targetDate &&
-          other.category == category);
+          other.id == this.id &&
+          other.content == this.content &&
+          other.targetDate == this.targetDate &&
+          other.category == this.category);
 }
 
 class TodosCompanion extends UpdateCompanion<TodoEntry> {
@@ -112,6 +112,12 @@ class TodosCompanion extends UpdateCompanion<TodoEntry> {
     this.targetDate = const Value.absent(),
     this.category = const Value.absent(),
   });
+  TodosCompanion.insert({
+    this.id = const Value.absent(),
+    @required String content,
+    this.targetDate = const Value.absent(),
+    this.category = const Value.absent(),
+  }) : content = Value(content);
   TodosCompanion copyWith(
       {Value<int> id,
       Value<String> content,
@@ -302,7 +308,9 @@ class Category extends DataClass implements Insertable<Category> {
   @override
   bool operator ==(other) =>
       identical(this, other) ||
-      (other is Category && other.id == id && other.description == description);
+      (other is Category &&
+          other.id == this.id &&
+          other.description == this.description);
 }
 
 class CategoriesCompanion extends UpdateCompanion<Category> {
@@ -312,6 +320,10 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
     this.id = const Value.absent(),
     this.description = const Value.absent(),
   });
+  CategoriesCompanion.insert({
+    this.id = const Value.absent(),
+    @required String description,
+  }) : description = Value(description);
   CategoriesCompanion copyWith({Value<int> id, Value<String> description}) {
     return CategoriesCompanion(
       id: id ?? this.id,
@@ -406,15 +418,10 @@ abstract class _$Database extends GeneratedDatabase {
   $TodosTable get todos => _todos ??= $TodosTable(this);
   $CategoriesTable _categories;
   $CategoriesTable get categories => _categories ??= $CategoriesTable(this);
-  Future<int> _resetCategory(
-      int var1,
-      {@Deprecated('No longer needed with Moor 1.6 - see the changelog for details')
-          QueryEngine operateOn}) {
-    return (operateOn ?? this).customUpdate(
+  Future<int> _resetCategory(int var1) {
+    return customUpdate(
       'UPDATE todos SET category = NULL WHERE category = ?',
-      variables: [
-        Variable.withInt(var1),
-      ],
+      variables: [Variable.withInt(var1)],
       updates: {todos},
     );
   }
