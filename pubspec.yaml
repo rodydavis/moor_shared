@@ -12,7 +12,7 @@ dependencies:
   
   # Dart
   cupertino_icons: ^0.1.2
-  moor: ^1.7.1
+  moor: ^2.0.0
   rxdart: ^0.22.2
   intl: ^0.16.0
 
@@ -26,28 +26,11 @@ dependencies:
   # Web
 
 dev_dependencies:
-  moor_generator: ^1.7.1
+  moor_generator: ^2.0.0
   build_runner: ^1.6.7
   build_web_compilers: ^2.3.0
   flutter_test:
     sdk: flutter
-
-dependency_overrides:
-  moor:
-    git:
-      url: git://github.com/simolus3/moor.git
-      ref: beta
-      path: moor/
-  moor_ffi:
-    git:
-      url: git://github.com/simolus3/moor.git
-      ref: beta
-      path: moor_ffi/
-  moor_generator:
-    git:
-      url: git://github.com/simolus3/moor.git
-      ref: beta
-      path: moor_generator/
 
 flutter:
   uses-material-design: true
