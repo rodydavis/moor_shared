@@ -35,6 +35,10 @@ if %errorlevel% neq 0 exit /b %errorlevel%
 call xcopy /s /e /i /q "%FLUTTER_APP_DIR%\build\%ASSET_DIR_NAME%" "%TARGET_ASSET_DIR%"
 if %errorlevel% neq 0 exit /b %errorlevel%
 
+:: Copy the SQLite DLL to the target location.
+call xcopy /y /d /q "sqlite3.dll" "%BUNDLE_DIR%"
+if %errorlevel% neq 0 exit /b %errorlevel%
+
 :: Copy the icudtl.dat file from the Flutter tree to the data directory.
 call xcopy /y /d /q "%FLUTTER_CACHE_DIR%icudtl.dat" "%DATA_DIR%"
 if %errorlevel% neq 0 exit /b %errorlevel%

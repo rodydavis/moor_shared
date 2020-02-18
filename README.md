@@ -1,7 +1,7 @@
 # moor_shared
 
 An example project to demonstrate how moor can be used on multiple platforms
-(Web, android, iOS, macOS and Linux).
+(Web, android, iOS, macOS, Windows and Linux).
 
 __Note__: You need to install the Android NDK to run this app on Android
 devices. You can get the NDK in the [SDK Manager](https://developer.android.com/studio/intro/update.html#sdk-manager)
@@ -28,6 +28,9 @@ samples, guidance on mobile development, and a full API reference.
 
 ![](/screenshots/ipad.png)
 
+### Windows
+
+![](/screenshots/windows.png)
 
 ### Web
 
