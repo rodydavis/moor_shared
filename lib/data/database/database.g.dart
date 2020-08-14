@@ -180,6 +180,17 @@ class TodosCompanion extends UpdateCompanion<TodoEntry> {
     }
     return map;
   }
+
+  @override
+  String toString() {
+    return (StringBuffer('TodosCompanion(')
+          ..write('id: $id, ')
+          ..write('content: $content, ')
+          ..write('targetDate: $targetDate, ')
+          ..write('category: $category')
+          ..write(')'))
+        .toString();
+  }
 }
 
 class $TodosTable extends Todos with TableInfo<$TodosTable, TodoEntry> {
@@ -392,6 +403,15 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
       map['desc'] = Variable<String>(description.value);
     }
     return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CategoriesCompanion(')
+          ..write('id: $id, ')
+          ..write('description: $description')
+          ..write(')'))
+        .toString();
   }
 }
 

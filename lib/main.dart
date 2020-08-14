@@ -39,7 +39,7 @@ class _MyAppState extends State<MyApp> {
         theme: ThemeData(
           primarySwatch: Colors.orange,
           // use the good-looking updated material text style
-          typography: Typography(
+          typography: Typography.material2018(
             englishLike: Typography.englishLike2018,
             dense: Typography.dense2018,
             tall: Typography.tall2018,
