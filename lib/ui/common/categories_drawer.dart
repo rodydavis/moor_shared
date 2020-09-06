@@ -16,7 +16,7 @@ class CategoriesDrawer extends StatelessWidget {
               'Todo-List Demo with moor',
               style: Theme.of(context)
                   .textTheme
-                  .subhead
+                  .subtitle1
                   .copyWith(color: Colors.white),
             ),
             decoration: BoxDecoration(color: Colors.orange),

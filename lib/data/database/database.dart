@@ -54,7 +54,7 @@ class Database extends _$Database {
   MigrationStrategy get migration {
     return MigrationStrategy(
       onCreate: (Migrator m) {
-        return m.createAllTables();
+        return m.createAll();
       },
       onUpgrade: (Migrator m, int from, int to) async {
         if (from == 1) {
@@ -89,7 +89,7 @@ class Database extends _$Database {
   Stream<List<CategoryWithCount>> categoriesWithCount() {
     // select all categories and load how many associated entries there are for
     // each category
-    return customSelectQuery(
+    return customSelect(
       'SELECT c.id, c.desc, '
       '(SELECT COUNT(*) FROM todos WHERE category = c.id) AS amount '
       'FROM categories c '

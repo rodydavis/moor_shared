@@ -13,5 +13,5 @@ class BlocProvider extends InheritedWidget {
   }
 
   static TodoAppBloc provideBloc(BuildContext ctx) =>
-      (ctx.inheritFromWidgetOfExactType(BlocProvider) as BlocProvider).bloc;
+      ctx.dependOnInheritedWidgetOfExactType<BlocProvider>().bloc;
 }
