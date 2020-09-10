@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../../src/blocs/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:moor_shared/src/blocs/todo.dart';
 
 class AddCategoryDialog extends StatefulWidget {
   @override
@@ -50,7 +50,7 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
 
   void _addEntry() {
     if (_controller.text.isNotEmpty) {
-      BlocProvider.provideBloc(context).addCategory(_controller.text);
+      BlocProvider.of<TodoAppBloc>(context).addCategory(_controller.text);
       Navigator.of(context).pop();
     }
   }

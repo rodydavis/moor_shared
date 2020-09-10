@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../src/blocs/bloc.dart';
-import '../../src/blocs/provider.dart';
+import '../../src/blocs/todo.dart';
 import 'index.dart';
 
 class CategoriesDrawer extends StatelessWidget {
@@ -23,7 +23,7 @@ class CategoriesDrawer extends StatelessWidget {
           ),
           Flexible(
             child: StreamBuilder<List<CategoryWithActiveInfo>>(
-              stream: BlocProvider.provideBloc(context).categories,
+              stream: BlocProvider.of<TodoAppBloc>(context).categories,
               builder: (context, snapshot) {
                 final categories = snapshot.data ?? <CategoryWithActiveInfo>[];
 
@@ -71,7 +71,7 @@ class _CategoryDrawerEntry extends StatelessWidget {
     }
 
     final isActive = entry.isActive;
-    final bloc = BlocProvider.provideBloc(context);
+    final bloc = BlocProvider.of<TodoAppBloc>(context);
 
     final rowContent = [
       Text(

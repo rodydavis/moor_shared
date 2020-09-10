@@ -7,6 +7,9 @@ __Note__: You need to install the Android NDK to run this app on Android
 devices. You can get the NDK in the [SDK Manager](https://developer.android.com/studio/intro/update.html#sdk-manager)
 of Android Studio.
 
+- Undo/Redo
+- Cross Platform
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.

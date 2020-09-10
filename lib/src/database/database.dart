@@ -4,6 +4,8 @@ import 'package:undo/undo.dart';
 
 import 'db_utils.dart';
 
+export 'database/shared.dart';
+
 part 'database.g.dart';
 
 @DataClassName('TodoEntry')

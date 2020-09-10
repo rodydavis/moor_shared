@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
-import '../../src/blocs/provider.dart';
+import '../../src/blocs/todo.dart';
 import '../../src/database/database.dart';
 import 'index.dart';
 
@@ -66,7 +67,7 @@ class TodoCard extends StatelessWidget {
               onPressed: () {
                 // We delete the entry here. Again, notice how we don't have to call setState() or
                 // inform the parent widget. The animated list will take care of this automatically.
-                BlocProvider.provideBloc(context).deleteEntry(entry);
+                BlocProvider.of<TodoAppBloc>(context).deleteEntry(entry);
               },
             )
           ],

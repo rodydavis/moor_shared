@@ -1,19 +1,24 @@
+import 'package:bloc/bloc.dart';
 import 'package:moor/moor.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:undo/undo.dart';
 
 import '../database/database.dart';
-import '../database/database/shared.dart';
 
 /// Class that keeps information about a category and whether it's selected at
 /// the moment.
 class CategoryWithActiveInfo {
+  CategoryWithActiveInfo(this.categoryWithCount, this.isActive);
+
   CategoryWithCount categoryWithCount;
   bool isActive;
-
-  CategoryWithActiveInfo(this.categoryWithCount, this.isActive);
 }
 
-class TodoAppBloc {
+class TodoAppBloc extends Cubit<ChangeStack> {
+  TodoAppBloc(this.db) : super(db.cs) {
+    init();
+  }
+
   final Database db;
 
   // the category that is selected at the moment. null means that we show all
@@ -21,16 +26,17 @@ class TodoAppBloc {
   final BehaviorSubject<Category> _activeCategory =
       BehaviorSubject.seeded(null);
 
+  final BehaviorSubject<List<CategoryWithActiveInfo>> _allCategories =
+      BehaviorSubject();
+
   Observable<List<EntryWithCategory>> _currentEntries;
 
   /// A stream of entries that should be displayed on the home screen.
   Observable<List<EntryWithCategory>> get homeScreenEntries => _currentEntries;
 
-  final BehaviorSubject<List<CategoryWithActiveInfo>> _allCategories =
-      BehaviorSubject();
   Observable<List<CategoryWithActiveInfo>> get categories => _allCategories;
 
-  TodoAppBloc() : db = constructDb() {
+  void init() {
     // listen for the category to change. Then display all entries that are in
     // the current category on the home screen.
     _currentEntries = _activeCategory.switchMap(db.watchEntriesInCategory);
@@ -49,6 +55,7 @@ class TodoAppBloc {
         }).toList();
       },
     ).listen(_allCategories.add);
+    emit(db.cs);
   }
 
   void showCategory(Category category) {
@@ -57,33 +64,54 @@ class TodoAppBloc {
 
   void addCategory(String description) async {
     final id = await db.createCategory(description);
-
+    emit(db.cs);
     showCategory(Category(id: id, description: description));
   }
 
-  void createEntry(String content) {
-    db.createEntry(TodosCompanion(
+  void createEntry(String content) async {
+    await db.createEntry(TodosCompanion(
       content: Value(content),
       category: Value(_activeCategory.value?.id),
     ));
+    emit(db.cs);
   }
 
-  void updateEntry(TodoEntry entry) {
+  void updateEntry(TodoEntry entry) async {
     db.updateEntry(entry);
+    emit(db.cs);
   }
 
-  void deleteEntry(TodoEntry entry) {
+  void deleteEntry(TodoEntry entry) async {
     db.deleteEntry(entry);
+    emit(db.cs);
   }
 
-  void deleteCategory(Category category) {
-    // if the category being deleted is the one selected, reset that state by
+  void deleteCategory(Category category) async {
+    // if the category being deleted is the one selected, reset that db by
     // showing the entries who aren't in any category
     if (_activeCategory.value?.id == category.id) {
       showCategory(null);
     }
 
-    db.deleteCategory(category);
+    await db.deleteCategory(category);
+    emit(db.cs);
+  }
+
+  bool get canUndo => db.cs.canUndo;
+  void undo() async {
+    await db.cs.undo();
+    emit(db.cs);
+  }
+
+  bool get canRedo => db.cs.canRedo;
+  void redo() async {
+    await db.cs.redo();
+    emit(db.cs);
+  }
+
+  void clear() {
+    db.cs.clearHistory();
+    emit(db.cs);
   }
 
   void dispose() {
