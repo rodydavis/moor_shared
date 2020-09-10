@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../../data/blocs/provider.dart';
-import '../../data/database/database.dart';
+import '../../src/blocs/provider.dart';
+import '../../src/database/database.dart';
 import 'index.dart';
 
 final DateFormat _format = DateFormat.yMMMd();

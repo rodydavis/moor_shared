@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../data/blocs/bloc.dart';
-import '../../data/blocs/provider.dart';
-import '../../data/database/database.dart';
+import '../../src/blocs/bloc.dart';
+import '../../src/blocs/provider.dart';
+import '../../src/database/database.dart';
 import '../common/index.dart';
 
 // ignore_for_file: prefer_const_constructors
@@ -26,6 +26,30 @@ class HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Todo list'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.undo),
+            onPressed: !bloc.db.cs.canUndo
+                ? null
+                : () {
+                    if (mounted)
+                      setState(() {
+                        bloc.db.cs.undo();
+                      });
+                  },
+          ),
+          IconButton(
+            icon: Icon(Icons.redo),
+            onPressed: !bloc.db.cs.canRedo
+                ? null
+                : () {
+                    if (mounted)
+                      setState(() {
+                        bloc.db.cs.redo();
+                      });
+                  },
+          ),
+        ],
       ),
       drawer: CategoriesDrawer(),
       body: StreamBuilder<List<EntryWithCategory>>(

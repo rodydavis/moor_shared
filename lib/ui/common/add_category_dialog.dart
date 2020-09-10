@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../data/blocs/provider.dart';
+import '../../src/blocs/provider.dart';
 
 class AddCategoryDialog extends StatefulWidget {
   @override

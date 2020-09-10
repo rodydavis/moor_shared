@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../data/blocs/bloc.dart';
-import '../../data/blocs/provider.dart';
+import '../../src/blocs/bloc.dart';
+import '../../src/blocs/provider.dart';
 import 'index.dart';
 
 class CategoriesDrawer extends StatelessWidget {

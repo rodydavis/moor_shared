@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'data/blocs/bloc.dart';
-import 'data/blocs/provider.dart';
+import 'src/blocs/bloc.dart';
+import 'src/blocs/provider.dart';
 import 'plugins/desktop/desktop.dart';
 import 'ui/home/screen.dart';
 
@@ -35,6 +35,7 @@ class _MyAppState extends State<MyApp> {
     return BlocProvider(
       bloc: bloc,
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'moor Demo',
         theme: ThemeData(
           primarySwatch: Colors.orange,

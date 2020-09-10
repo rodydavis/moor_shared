@@ -5,10 +5,10 @@
 // 'flutter create' template.
 
 // The application's name. By default this is also the title of the Flutter window.
-PRODUCT_NAME = Flutter Desktop Example
+PRODUCT_NAME = moor_shared
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.example.flutterDesktopExample
+PRODUCT_BUNDLE_IDENTIFIER = com.example.moorShared
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2019 com.example. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2020 com.example. All rights reserved.
