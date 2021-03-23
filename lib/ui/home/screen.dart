@@ -57,14 +57,15 @@ class HomeScreenState extends State<HomeScreen> {
         body: StreamBuilder<List<EntryWithCategory>>(
           stream: bloc.homeScreenEntries,
           builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return const Align(
-                alignment: Alignment.center,
-                child: CircularProgressIndicator(),
-              );
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
             }
 
-            final activeTodos = snapshot.data;
+            if (!snapshot.hasData) {
+              return Center(child: Text('no data!'));
+            }
+
+            final activeTodos = snapshot.data!;
 
             return ListView.builder(
               itemCount: activeTodos.length,

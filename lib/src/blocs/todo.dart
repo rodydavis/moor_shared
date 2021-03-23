@@ -23,16 +23,16 @@ class TodoAppBloc extends Cubit<ChangeStack> {
 
   // the category that is selected at the moment. null means that we show all
   // entries
-  final BehaviorSubject<Category> _activeCategory =
+  final BehaviorSubject<Category?> _activeCategory =
       BehaviorSubject.seeded(null);
 
   final BehaviorSubject<List<CategoryWithActiveInfo>> _allCategories =
       BehaviorSubject();
 
-  Stream<List<EntryWithCategory>> _currentEntries;
+  Stream<List<EntryWithCategory>>? _currentEntries;
 
   /// A stream of entries that should be displayed on the home screen.
-  Stream<List<EntryWithCategory>> get homeScreenEntries => _currentEntries;
+  Stream<List<EntryWithCategory>>? get homeScreenEntries => _currentEntries;
 
   Stream<List<CategoryWithActiveInfo>> get categories => _allCategories;
 
@@ -43,7 +43,7 @@ class TodoAppBloc extends Cubit<ChangeStack> {
 
     // also watch all categories so that they can be displayed in the navigation
     // drawer.
-    Rx.combineLatest2<List<CategoryWithCount>, Category,
+    Rx.combineLatest2<List<CategoryWithCount>, Category?,
         List<CategoryWithActiveInfo>>(
       db.categoriesWithCount(),
       _activeCategory,
@@ -58,7 +58,7 @@ class TodoAppBloc extends Cubit<ChangeStack> {
     emit(db.cs);
   }
 
-  void showCategory(Category category) {
+  void showCategory(Category? category) {
     _activeCategory.add(category);
   }
 
@@ -98,14 +98,14 @@ class TodoAppBloc extends Cubit<ChangeStack> {
   }
 
   bool get canUndo => db.cs.canUndo;
-  void undo() async {
-    await db.cs.undo();
+  void undo() {
+    db.cs.undo();
     emit(db.cs);
   }
 
   bool get canRedo => db.cs.canRedo;
-  void redo() async {
-    await db.cs.redo();
+  void redo() {
+    db.cs.redo();
     emit(db.cs);
   }
 

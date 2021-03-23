@@ -25,14 +25,14 @@ class Todos extends Table {
 class Categories extends Table {
   IntColumn get id => integer().autoIncrement()();
 
-  TextColumn get description => text().named('desc')();
+  TextColumn get description => text().named('desc').nullable()();
 }
 
 class CategoryWithCount {
   CategoryWithCount(this.category, this.count);
 
   // can be null, in which case we count how many entries don't have a category
-  final Category category;
+  final Category? category;
   final int count; // amount of entries in this category
 }
 
@@ -40,7 +40,7 @@ class EntryWithCategory {
   EntryWithCategory(this.entry, this.category);
 
   final TodoEntry entry;
-  final Category category;
+  final Category? category;
 }
 
 @UseMoor(
@@ -115,28 +115,34 @@ class Database extends _$Database {
 
   /// Watches all entries in the given [category]. If the category is null, all
   /// entries will be shown instead.
-  Stream<List<EntryWithCategory>> watchEntriesInCategory(Category category) {
-    final query = select(todos).join(
-        [leftOuterJoin(categories, categories.id.equalsExp(todos.category))]);
-
+  Stream<List<EntryWithCategory>> watchEntriesInCategory(Category? category) {
     if (category != null) {
-      query.where(categories.id.equals(category.id));
-    } else {
-      query.where(isNull(categories.id));
+      final query = select(todos).join(
+        [leftOuterJoin(categories, categories.id.equalsExp(todos.category))],
+      )..where(categories.id.equals(category.id));
+
+      return query.watch().map((rows) {
+        // read both the entry and the associated category for each row
+        return rows.map((row) {
+          return EntryWithCategory(
+            row.readTable(todos),
+            row.readTable(categories),
+          );
+        }).toList();
+      });
     }
+
+    final query = select(todos)..where((t) => todos.category.isNull());
 
     return query.watch().map((rows) {
       // read both the entry and the associated category for each row
       return rows.map((row) {
-        return EntryWithCategory(
-          row.readTable(todos),
-          row.readTable(categories),
-        );
+        return EntryWithCategory(row, null);
       }).toList();
     });
   }
 
-  Future createEntry(TodosCompanion entry) async {
+  Future<void> createEntry(TodosCompanion entry) async {
     final _todos = await (select(todos)
           ..orderBy([
             (u) => OrderingTerm(expression: u.id, mode: OrderingMode.desc),
@@ -161,7 +167,7 @@ class Database extends _$Database {
       cs,
       categories,
       CategoriesCompanion(description: Value(description)),
-    );
+    ) as Future<int>;
   }
 
   Future deleteCategory(Category category) {
