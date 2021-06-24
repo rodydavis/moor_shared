@@ -8,9 +8,9 @@ import '../../src/database/database.dart';
 final _dateFormat = DateFormat.yMMMd();
 
 class TodoEditDialog extends StatefulWidget {
-  final TodoEntry entry;
+  final TodoEntry? entry;
 
-  const TodoEditDialog({Key key, this.entry}) : super(key: key);
+  const TodoEditDialog({Key? key, this.entry}) : super(key: key);
 
   @override
   _TodoEditDialogState createState() => _TodoEditDialogState();
@@ -18,12 +18,12 @@ class TodoEditDialog extends StatefulWidget {
 
 class _TodoEditDialogState extends State<TodoEditDialog> {
   final TextEditingController textController = TextEditingController();
-  DateTime _dueDate;
+  DateTime? _dueDate;
 
   @override
   void initState() {
-    textController.text = widget.entry.content;
-    _dueDate = widget.entry.targetDate;
+    textController.text = widget.entry!.content;
+    _dueDate = widget.entry!.targetDate;
     super.initState();
   }
 
@@ -37,7 +37,7 @@ class _TodoEditDialogState extends State<TodoEditDialog> {
   Widget build(BuildContext context) {
     var formattedDate = 'No date set';
     if (_dueDate != null) {
-      formattedDate = _dateFormat.format(_dueDate);
+      formattedDate = _dateFormat.format(_dueDate!);
     }
 
     return AlertDialog(
@@ -81,18 +81,23 @@ class _TodoEditDialogState extends State<TodoEditDialog> {
         ],
       ),
       actions: [
-        FlatButton(
+        TextButton(
           child: const Text('Cancel'),
-          textColor: Colors.black,
+          // textColor: Colors.black,
+          style: ButtonStyle(
+            textStyle: MaterialStateProperty.all(
+              TextStyle(color: Colors.black),
+            ),
+          ),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        FlatButton(
+        TextButton(
           child: const Text('Save'),
           onPressed: () {
             final updatedContent = textController.text;
-            final entry = widget.entry.copyWith(
+            final entry = widget.entry!.copyWith(
               content: updatedContent.isNotEmpty ? updatedContent : null,
               targetDate: _dueDate,
             );

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:moor_db_viewer/moor_db_viewer.dart';
+import 'package:moor_shared/src/database/database.dart';
 
 import '../../src/blocs/todo.dart';
 import 'index.dart';
@@ -12,12 +14,23 @@ class CategoriesDrawer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           DrawerHeader(
-            child: Text(
-              'Todo-List Demo with moor',
-              style: Theme.of(context)
-                  .textTheme
-                  .subtitle1
-                  .copyWith(color: Colors.white),
+            child: TextButton(
+              onPressed: () {
+                final db = RepositoryProvider.of<Database>(context);
+
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => MoorDbViewer(db),
+                  ),
+                );
+              },
+              child: Text(
+                'Todo-List Demo with moor',
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle1!
+                    .copyWith(color: Colors.white),
+              ),
             ),
             decoration: BoxDecoration(color: Colors.orange),
           ),
@@ -39,9 +52,14 @@ class CategoriesDrawer extends StatelessWidget {
           Spacer(),
           Row(
             children: <Widget>[
-              FlatButton(
+              TextButton(
                 child: const Text('Add category'),
-                textColor: Theme.of(context).accentColor,
+                // textColor: Theme.of(context).accentColor,
+                style: ButtonStyle(
+                  textStyle: MaterialStateProperty.all(
+                    TextStyle(color: Theme.of(context).accentColor),
+                  ),
+                ),
                 onPressed: () {
                   showDialog(
                       context: context, builder: (_) => AddCategoryDialog());
@@ -56,13 +74,13 @@ class CategoriesDrawer extends StatelessWidget {
 }
 
 class _CategoryDrawerEntry extends StatelessWidget {
-  final CategoryWithActiveInfo entry;
+  final CategoryWithActiveInfo? entry;
 
-  const _CategoryDrawerEntry({Key key, this.entry}) : super(key: key);
+  const _CategoryDrawerEntry({Key? key, this.entry}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final category = entry.categoryWithCount.category;
+    final category = entry!.categoryWithCount.category;
     String title;
     if (category == null) {
       title = 'No category';
@@ -70,7 +88,7 @@ class _CategoryDrawerEntry extends StatelessWidget {
       title = category.description ?? 'Unnamed';
     }
 
-    final isActive = entry.isActive;
+    final isActive = entry!.isActive;
     final bloc = BlocProvider.of<TodoAppBloc>(context);
 
     final rowContent = [
@@ -83,7 +101,7 @@ class _CategoryDrawerEntry extends StatelessWidget {
       ),
       Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Text('${entry.categoryWithCount?.count} entries'),
+        child: Text('${entry!.categoryWithCount.count} entries'),
       ),
     ];
 
@@ -102,15 +120,19 @@ class _CategoryDrawerEntry extends StatelessWidget {
                   title: const Text('Delete'),
                   content: Text('Really delete category $title?'),
                   actions: <Widget>[
-                    FlatButton(
+                    TextButton(
                       child: const Text('Cancel'),
                       onPressed: () {
                         Navigator.pop(context, false);
                       },
                     ),
-                    FlatButton(
+                    TextButton(
                       child: const Text('Delete'),
-                      textColor: Colors.red,
+                      style: ButtonStyle(
+                        textStyle: MaterialStateProperty.all(
+                          TextStyle(color: Colors.red),
+                        ),
+                      ),
                       onPressed: () {
                         Navigator.pop(context, true);
                       },
@@ -138,7 +160,7 @@ class _CategoryDrawerEntry extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
         child: InkWell(
           onTap: () {
-            bloc.showCategory(entry.categoryWithCount.category);
+            bloc.showCategory(entry!.categoryWithCount.category);
             Navigator.pop(context); // close the navigation drawer
           },
           child: Padding(

@@ -35,9 +35,13 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
             ),
             ButtonBar(
               children: [
-                FlatButton(
+                TextButton(
                   child: const Text('Add'),
-                  textColor: Theme.of(context).accentColor,
+                  style: ButtonStyle(
+                    textStyle: MaterialStateProperty.all(
+                      TextStyle(color: Theme.of(context).accentColor),
+                    ),
+                  ),
                   onPressed: _addEntry,
                 ),
               ],
