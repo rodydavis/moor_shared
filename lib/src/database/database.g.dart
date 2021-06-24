@@ -20,17 +20,15 @@ class TodoEntry extends DataClass implements Insertable<TodoEntry> {
   factory TodoEntry.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
     return TodoEntry(
-      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
-      content: stringType
+      id: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
+      content: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}content'])!,
-      targetDate: dateTimeType
+      targetDate: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}target_date']),
-      category:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}category']),
+      category: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}category']),
     );
   }
   @override
@@ -104,7 +102,7 @@ class TodoEntry extends DataClass implements Insertable<TodoEntry> {
   int get hashCode => $mrjf($mrjc(id.hashCode,
       $mrjc(content.hashCode, $mrjc(targetDate.hashCode, category.hashCode))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is TodoEntry &&
           other.id == this.id &&
@@ -268,8 +266,8 @@ class $TodosTable extends Todos with TableInfo<$TodosTable, TodoEntry> {
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   TodoEntry map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return TodoEntry.fromData(data, _db, prefix: effectivePrefix);
+    return TodoEntry.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
@@ -285,12 +283,11 @@ class Category extends DataClass implements Insertable<Category> {
   factory Category.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    final intType = db.typeSystem.forDartType<int>();
-    final stringType = db.typeSystem.forDartType<String>();
     return Category(
-      id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
-      description:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}desc']),
+      id: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
+      description: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}desc']),
     );
   }
   @override
@@ -345,7 +342,7 @@ class Category extends DataClass implements Insertable<Category> {
   @override
   int get hashCode => $mrjf($mrjc(id.hashCode, description.hashCode));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Category &&
           other.id == this.id &&
@@ -454,8 +451,8 @@ class $CategoriesTable extends Categories
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   Category map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return Category.fromData(data, _db, prefix: effectivePrefix);
+    return Category.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override

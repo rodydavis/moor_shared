@@ -108,7 +108,7 @@ class Database extends _$Database {
 
       return CategoryWithCount(
         hasId ? Category.fromData(row.data, this) : null,
-        row.readInt('amount'),
+        row.read<int>('amount'),
       );
     }).watch();
   }
