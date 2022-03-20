@@ -1,5 +1,5 @@
 // don't import moor_web.dart or moor_flutter/moor_flutter.dart in shared code
-import 'package:moor/moor.dart';
+import 'package:drift/drift.dart';
 import 'package:undo/undo.dart';
 
 import 'db_utils.dart';
@@ -43,7 +43,7 @@ class EntryWithCategory {
   final Category? category;
 }
 
-@UseMoor(
+@DriftDatabase(
   tables: [Todos, Categories],
   queries: {
     '_resetCategory': 'UPDATE todos SET category = NULL WHERE category = ?',
@@ -107,7 +107,7 @@ class Database extends _$Database {
       final hasId = row.data['id'] != null;
 
       return CategoryWithCount(
-        hasId ? Category.fromData(row.data, this) : null,
+        hasId ? Category.fromData(row.data) : null,
         row.read<int>('amount'),
       );
     }).watch();
