@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:moor_db_viewer/moor_db_viewer.dart';
+import 'package:drift_db_viewer/drift_db_viewer.dart';
 import 'package:moor_shared/src/database/database.dart';
 
 import '../../src/blocs/todo.dart';
@@ -20,7 +20,7 @@ class CategoriesDrawer extends StatelessWidget {
 
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => MoorDbViewer(db),
+                    builder: (context) => DriftDbViewer(db),
                   ),
                 );
               },
@@ -54,10 +54,9 @@ class CategoriesDrawer extends StatelessWidget {
             children: <Widget>[
               TextButton(
                 child: const Text('Add category'),
-                // textColor: Theme.of(context).accentColor,
                 style: ButtonStyle(
                   textStyle: MaterialStateProperty.all(
-                    TextStyle(color: Theme.of(context).accentColor),
+                    TextStyle(color: Theme.of(context).colorScheme.secondary),
                   ),
                 ),
                 onPressed: () {
@@ -96,7 +95,8 @@ class _CategoryDrawerEntry extends StatelessWidget {
         title,
         style: TextStyle(
           fontWeight: FontWeight.bold,
-          color: isActive ? Theme.of(context).accentColor : Colors.black,
+          color:
+              isActive ? Theme.of(context).colorScheme.secondary : Colors.black,
         ),
       ),
       Padding(

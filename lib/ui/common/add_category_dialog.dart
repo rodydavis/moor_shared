@@ -39,7 +39,7 @@ class _AddCategoryDialogState extends State<AddCategoryDialog> {
                   child: const Text('Add'),
                   style: ButtonStyle(
                     textStyle: MaterialStateProperty.all(
-                      TextStyle(color: Theme.of(context).accentColor),
+                      TextStyle(color: Theme.of(context).colorScheme.secondary),
                     ),
                   ),
                   onPressed: _addEntry,
